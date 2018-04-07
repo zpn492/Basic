@@ -22,6 +22,7 @@
 /* markov model */
 #include "src/markov/markov.hpp"
 
+/* Cashflow, Interest, Mortality */
 #include "src/annuity/annuity.hpp"
 
 void HTTPServer()
@@ -36,31 +37,9 @@ void Markov()
     markov.graph("");
     };
 
-void Annuity()
-    {
-    
-    std::cout << liv1::accumulated(liv1::NORMAL, 10000, 0.08, 10) << std::endl;
-
-    std::cout << liv1::retrospective(liv1::NORMAL, 1, 0.045, 30) << std::endl;
-
-    std::cout << liv1::accumulated(liv1::AFTERWARD, 10000, 0.08, 10) << std::endl;
-
-    std::cout << liv1::retrospective(liv1::AFTERWARD, 10000, 0.08, 10) << std::endl;
-
-    std::cout << liv1::accumulated(liv1::FORWARD, 10000, 0.08, 10) << std::endl;
-
-    std::cout << liv1::retrospective(liv1::FORWARD, 10000, 0.08, 10) << std::endl;
-
-    std::cout << liv1::retrospective(liv1::AFTERWARD, 1000, 0.1, 10, 12) << std::endl;
-    
-    std::cout << liv1::accumulated(liv1::CONTINUES, 100, 0.1, 1) << std::endl;
-    
-    };
-
 using namespace linalg;
 
 int main(int argc, char *args[])
     {
-    Annuity();
     return 0;
     };

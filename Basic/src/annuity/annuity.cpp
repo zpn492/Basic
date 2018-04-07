@@ -77,7 +77,7 @@ namespace liv1 {
                     {
                     case ACCUMULATED: // s
                         {
-                        return (pow(E, delta * (termin+1) ) - q) / interest;
+                        return (pow(E, delta * (termin+accural_of_interest) ) - q) / interest;
                         //return (pow(q, termin+1 ) - q ) / interest;
                         }
                     break;
@@ -116,6 +116,19 @@ namespace liv1 {
         return kn * liv1::interest(RETROSPECTIVE, cf, interest, termin_year, accural_of_interest);
         };
 
+    double mortality(
+        int age
+    )
+        {
+        return MALE_DEATH_ALPHA + MALE_DEATH_BETA * pow(E, MALE_DEATH_GAMMA*age);
+        };
+
+    double disability(
+        int age;
+    )
+        {
+        return MALE_DISABILITY_ALPHA + MALE_DISABILITY_BETA * pow(E, MALE_DISABILITY_GAMMA*age);
+        };
     
 };
 
