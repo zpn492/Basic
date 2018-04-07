@@ -22,6 +22,8 @@
 /* markov model */
 #include "src/markov/markov.hpp"
 
+#include "src/annuity/annuity.hpp"
+
 void HTTPServer()
     {
     HTTP http; http.start(80, "127.0.0.1", "data/public_html");
@@ -34,9 +36,27 @@ void Markov()
     markov.graph("");
     };
 
+void Annuity()
+    {
+    std::cout << liv1::accumulated(liv1::NORMAL, 10000, 0.08, 10) << std::endl;
+
+    std::cout << liv1::retrospective(liv1::NORMAL, 100000, 0.1, 3) << std::endl;
+
+    std::cout << liv1::accumulated(liv1::AFTERWARD, 10000, 0.08, 10) << std::endl;
+
+    std::cout << liv1::retrospective(liv1::AFTERWARD, 10000, 0.08, 10) << std::endl;
+
+    std::cout << liv1::accumulated(liv1::FORWARD, 10000, 0.08, 10) << std::endl;
+
+    std::cout << liv1::retrospective(liv1::FORWARD, 10000, 0.08, 10) << std::endl;
+
+    std::cout << liv1::retrospective(liv1::AFTERWARD, 1000, 0.1, 10, 12) << std::endl;
+    };
+
 using namespace linalg;
 
 int main(int argc, char *args[])
     {
+    Annuity();
     return 0;
     };
