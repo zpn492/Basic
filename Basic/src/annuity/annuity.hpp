@@ -1,4 +1,5 @@
 #include <math.h>
+#include <iostream>
 
 #ifndef __ANNUITY__
 #define __ANNUITY__

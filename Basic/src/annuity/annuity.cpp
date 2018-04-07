@@ -9,22 +9,36 @@ namespace liv1 {
         int accural_of_interest
     )
         {
-        //double q = pow(1 + interest*accural_of_interest/accural_of_interest, accural_of_interest);
-        double q, termin; 
+        double q, termin, delta; 
+
         if(accural_of_interest == 1)
             {
-            q = (1 + interest);
             termin = termin_year;
             }
         else
             {
             interest = pow((1+interest ), 1.0/accural_of_interest ) - 1;
-            q = 1 + interest;
             termin = termin_year * accural_of_interest;
             }    
 
+        q = 1 + interest;
+        delta = log(1.0 + interest);
+
         switch(cf)
             {
+            case CONTINUES:
+                {
+                switch(v)
+                    {
+                    case ACCUMULATED:
+                        return (pow(E, delta * termin ) - 1 ) / delta;
+                    break;
+                    case RETROSPECTIVE:
+                        return (1 - pow(E, -delta * termin ) - 1 ) / delta;
+                    break;
+                    }
+                }
+            break;
             case NORMAL:
                 {
                 switch(v)
@@ -44,12 +58,14 @@ namespace liv1 {
                     {
                     case ACCUMULATED: // s
                         {
-                        return (pow(q, termin ) - 1) / interest;
+                        return (pow(E, delta * termin) - 1) / interest;
+                        //return (pow(q, termin ) - 1) / interest;
                         }
                     break;
                     case RETROSPECTIVE:  // a
                         {
-                        return ( 1 - pow( q, -termin) ) / interest;
+                        return (1 - pow(E, -delta * termin) ) / interest;
+                        //return ( 1 - pow( q, -termin) ) / interest;
                         }
                     break;
                     }
@@ -61,12 +77,14 @@ namespace liv1 {
                     {
                     case ACCUMULATED: // s
                         {
-                        return (pow(q, termin+1 ) - q ) / interest;
+                        return (pow(E, delta * (termin+1) ) - q) / interest;
+                        //return (pow(q, termin+1 ) - q ) / interest;
                         }
                     break;
                     case RETROSPECTIVE:  // a
                         {
-                        return (( 1 - pow(q, -termin ) ) / interest ) * q;
+                        return q * (1 - pow(E, -delta * termin) ) / interest;
+                        //return (( 1 - pow(q, -termin ) ) / interest ) * q;
                         }
                     break;
                     }
