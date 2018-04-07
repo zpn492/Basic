@@ -26,7 +26,7 @@ namespace liv1 {
 
         switch(cf)
             {
-            case CONTINUES:
+            case CONTINUOUS:
                 {
                 switch(v)
                     {
@@ -93,6 +93,14 @@ namespace liv1 {
             }
         return 0;
         };
+
+    double discounting(
+        double interest,
+        int termin_year
+    )
+        {
+        return pow(E, -interest * termin_year);
+        };
     
     double accumulated(
         Cashflow cf, 
@@ -124,11 +132,63 @@ namespace liv1 {
         };
 
     double disability(
-        int age;
+        int age
     )
         {
         return MALE_DISABILITY_ALPHA + MALE_DISABILITY_BETA * pow(E, MALE_DISABILITY_GAMMA*age);
         };
     
+    double lx(
+        int age
+    )
+        {
+        // exp(-alpha * t - beta * (exp(gamma * t) - 1.0) / gamma)
+        return pow(E, -MALE_DEATH_ALPHA * age - MALE_DEATH_BETA * (pow(E, MALE_DEATH_GAMMA*age) - 1.0 ) / MALE_DEATH_GAMMA );
+        };
+    
+    double npx(
+        int termin_year,
+        int age
+    )
+        {
+        return lx(age + termin_year) / lx(age);
+        };
+
+    double nqx(
+        int termin_year,
+        int age
+    )
+        {
+        return 1 - npx(termin_year, age);
+        };
+    
+    double nex(
+        double interest,
+        int termin_year,
+        int age
+    )
+        {
+        return discounting(termin_year, interest) * npx(termin_year, age);
+        };   
+
+    double vt(
+        int t,
+        double interest,
+        int termin_year,
+        int age
+    )
+        {
+        return nex(interest, termin_year - t, age + t);
+        };
+
+    double passiv(
+        double k,
+        double interest,
+        int termin_year,
+        int age
+    )
+        {
+        return nex(interest, termin_year, age) * retrospective(liv1::NORMAL, k, interest, termin_year);
+        };
 };
 
