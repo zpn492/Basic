@@ -1,4 +1,5 @@
-#include "src/sock/sock.h"
+/* WIN - HTTP server */
+#include "lib/http/http.hpp"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -16,8 +17,6 @@
 /* linalg */
 #include "lib/matrix/matrix.hpp"
 #include "lib/calculator/calculator.hpp"
-
-#include "src/http/http.hpp"
 
 /* markov model */
 #include "src/markov/markov.hpp"

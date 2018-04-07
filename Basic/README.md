@@ -7,15 +7,15 @@ Materialet bygger på bøgerne: <br />
     - Version: September 2002 <br /> <br />
 
 Det forsøges, at bygge simple formler til uddredelse af følgende: <br />
-> Akkummuleret værdi <br />
+> Akkumuleret værdi <br />
 > Nutidsværdi <br />
 > Gompertz-Makeham <br />
 > Thiele's ligning <br />
 > Kolmogoro ligning 
 
  <br />  <br />
- Foruden ovenstående, ligger der lidt hjælpe programmer/klasser til visualisering og behandling af data: <br />
- > Simple HTTP-server <br />
- > IO filhåndtering <br />
+ Foruden ovenstående, ligger der lidt hjælpeprogrammer/-klasser til visualisering og behandling af data: <br />
+ > Simpel WIN HTTP-server <br />
+ > IO til filhåndtering <br />
  > Histogram <br />
  > Matrix

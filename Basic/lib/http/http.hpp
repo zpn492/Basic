@@ -1,4 +1,4 @@
-#include "../../src/sock/sock.h"
+#include "../../lib/sock/sock.h"
 #include "../../lib/filehandler/filehandler.h"
 #include "../../lib/logger/logger.h"
 #include <map>
