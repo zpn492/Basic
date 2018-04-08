@@ -38,8 +38,26 @@ namespace filehandler
     extern void print_file(const char *filename, Logger &logger);
 
     extern std::string int_to_string(int value);
+
+    extern std::string double_to_string(double value);
 	
 	extern void replace(std::string &s, char before, char after);
+
+    /* This methods creates .js file
+     * this file is ready to be integrated with boostrap: https://mdbootstrap.com/javascript/charts/ 
+     * Format: 
+     * labels: [keys[0]->key, .., keys[n]->key] 
+     * data: [keys[0]->occurrences, .., keys[n]->occurrences]
+     */
+    extern void histogram(const char *filename, std::vector<std::string> labels, std::vector<double> dataset);
+
+    /* This methods creates .js file
+     * this file is ready to be integrated with boostrap: https://mdbootstrap.com/javascript/charts/ 
+     * Format: 
+     * labels: [keys[0]->key, .., keys[n]->key] 
+     * data: [keys[0]->occurrences, .., keys[n]->occurrences]
+     */
+    extern void linechart(const char *filename, std::vector<std::string> labels, std::vector<double> dataset);
 	
     };
 #endif

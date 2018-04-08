@@ -137,8 +137,71 @@ std::string filehandler::int_to_string(int value)
     oss << value;
     return oss.str();
     };
+
+std::string filehandler::double_to_string(double value)
+    {
+    std::ostringstream oss;
+    oss << value;
+    return oss.str();
+    };
 	
 void filehandler::replace(std::string &s, char before, char after)
 	{
 	std::replace(s.begin(), s.end(), before, after);
-	}
+	};
+
+/* Run a function with a series of input
+ * For each result, store x values in a historgram or  */
+void filehandler::histogram(const char *filename, std::vector<std::string> labels, std::vector<double> dataset)
+    {
+    if(labels.size() != dataset.size())
+        std::cout << "Labels" << labels.size() << " and dataset: ";
+        std::cout << dataset.size() << " should be of same size" << std::endl;
+    
+    std::string tmp = "var ctx = document.getElementById(\"myChart\").getContext('2d');";
+    tmp += "var myChart = new Chart(ctx, {type: 'bar', data: {";
+
+    tmp += "labels: [";
+    for(int i = 0; i < labels.size()-1; i++)
+        {
+        tmp += "\""; tmp += labels[i]; tmp += "\", ";
+        }
+    tmp += "\""; tmp += labels[labels.size()-1]; tmp += "\"";
+    tmp += "],";
+    tmp += "datasets: [{label: 'Some label',";
+    tmp += " data: [";
+    for(int j = 0; j < dataset.size()-1; j++)
+        {
+        tmp += filehandler::int_to_string(dataset[j]); tmp += ", ";
+        }
+    tmp += filehandler::int_to_string(dataset[dataset.size()-1]);
+    tmp += "], ";
+    tmp += "borderWidth: 1}]}, options: { scales: { yAxes: [{ ticks: { beginAtZero:true } }] } } });";
+    filehandler::write_file(filename, tmp.c_str());
+    };
+
+/* Run a function with a series of input
+ * For each result, store x values in a historgram or  */
+void filehandler::linechart(const char *filename, std::vector<std::string> labels, std::vector<double> dataset)
+    {
+    std::string tmp = "var ctx = document.getElementById(\"myChart\").getContext('2d');";
+    tmp += "var myChart = new Chart(ctx, {type: 'line', data: {";
+
+    tmp += "labels: [";
+    for(int i = 0; i < labels.size()-1; i++)
+        {
+        tmp += "\""; tmp += labels[i]; tmp += "\", ";
+        }
+    tmp += "\""; tmp += labels[labels.size()-1]; tmp += "\"";
+    tmp += "],";
+    tmp += "datasets: [{label: 'Some label', pointColor: 'rgba(220,220,220,1', pointStrokeColor: '#fff', ";
+    tmp += " data: [";
+    for(int j = 0; j < dataset.size()-1; j++)
+        {
+        tmp += filehandler::double_to_string(dataset[j]); tmp += ", ";
+        }
+    tmp += filehandler::double_to_string(dataset[dataset.size()-1]);
+    tmp += "], ";
+    tmp += "borderWidth: 1}]}, options: { scales: { yAxes: [{ ticks: { beginAtZero:true } }] } } });";
+    filehandler::write_file(filename, tmp.c_str());
+    };
