@@ -63,6 +63,7 @@ namespace liv1 {
 
     /* Calculates the accumulated value
      * How much is your savings after n years with an interest i and a payment k0
+     * Chapter 1, page 5: A. The bank savings contract
      */    
     double accumulated( // s
         Cashflow cf, 
@@ -74,6 +75,7 @@ namespace liv1 {
 
     /* Calculates the retrospective value
      * How much should you be saving, if you after n years with an interest i and want a payment kn
+     * Chapter 1, page 9-10: B. Saving in the bank
      */
     double retrospective( // a
         Cashflow cf, 

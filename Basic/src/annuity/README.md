@@ -1,4 +1,4 @@
-# Standard funktioner <br />
+# Standardfunktioner <br />
 > Akkumuleretværdi <br />
 > Nutidsværdi <br />
 > Rentetilskrivning <br />
@@ -6,6 +6,9 @@
 > Passiv <br />
 <br />
 
+Find reference til bogen 'Basic Life Insurance Mathematics af Ragnar Norberg', under annuity.hpp
+
+<br />
 > Akkumuleretværdi <br />
 ```c++
 // På en bankbog indsættes 10.000 kr., der forrentes med 8 procent p.a. 
@@ -14,7 +17,6 @@
 
 double k0 = liv1::accumulated(liv1::NORMAL, 10000, 0.08, 10);
 ``` 
-
 
 > Nutidsværdi <br />
 ```c++
@@ -58,7 +60,7 @@ Anvendelse af rentetilskrivning foregår ved at kalde liv1::accumulated eller li
 // Beregner på baggrund af Gompertz-Makeham parametre,
 // hvor mange mænd der overlever til alder x
 
-double survivors = liv1::lx(x);
+double Overlevende_Mænd = liv1::lx(x);
 
 // Sandsynligheden for at være x år og overleve til alder x + n, 
 // findes ved at se hvor mange der bliver x+n år, 
@@ -90,5 +92,9 @@ double Startkapital = liv1::retrospective(liv1::NORMAL, 1, 0.045, 30);
 // Vi kan nu beregne passivet, som sandsynligheden for at opnå udbetaling
 // gange med en startkapitalen for at opnår 1 kr. med 4,5 % rente p.a. i 30 år.
 
-double passiv = Bliver_60 * Startkapital;
+double Passiv = Bliver_60 * Startkapital;
+
+// Værdien kan også findes direkte via funktionen passiv.
+// Denne funktion anvender diskontering.
+double Passiv_Diskontering = liv1::passiv(1, 0.045, 30, 30);
 ```
