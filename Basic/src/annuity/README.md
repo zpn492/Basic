@@ -1,4 +1,5 @@
 # Standardfunktioner <br />
+### Find reference til bogen 'Basic Life Insurance Mathematics af Ragnar Norberg', under annuity.hpp
 > Akkumuleretværdi <br />
 > Nutidsværdi <br />
 > Rentetilskrivning <br />
@@ -6,9 +7,6 @@
 > Passiv <br />
 <br />
 
-Find reference til bogen 'Basic Life Insurance Mathematics af Ragnar Norberg', under annuity.hpp
-
-<br />
 > Akkumuleretværdi <br />
 ```c++
 // På en bankbog indsættes 10.000 kr., der forrentes med 8 procent p.a. 
