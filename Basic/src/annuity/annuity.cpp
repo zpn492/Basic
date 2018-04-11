@@ -1,6 +1,62 @@
 #include "annuity.hpp"
 
 namespace liv1 {
+
+    /* ************************************************* */
+    /* MortalityTable */
+    /* ************************************************* */
+    MortalityTable::MortalityTable(const char *filename)
+        {
+        Logger log;
+        int age; double death_intensity;
+        std::vector<std::string> lines, row;
+        std::string data = filehandler::get_file_contents(filename, log);
+
+        lines = filehandler::split_string(data, '\n');
+        
+        for(int i = 1; i < lines.size(); i++)
+            {
+            row = filehandler::split_string(lines[i], ';');
+            age = atoi(row[0].c_str());
+            death_intensity = atof(row[3].c_str());
+            mortality.insert( std::pair<int, double>(age, death_intensity) );
+            }
+        };
+
+    double MortalityTable::lx(int age)
+        {
+        return mortality[age] / mortality[0];
+        };
+
+    double MortalityTable::npx(int termin_year, int age)
+        {
+        return MortalityTable::lx(age + termin_year) / MortalityTable::lx(age);
+        };
+
+    double MortalityTable::nqx(int termin_year, int age)
+        {
+        return 1 - MortalityTable::npx(termin_year, age);
+        };
+
+    double MortalityTable::nex(int interest, int termin_year, int age)
+        {
+        return discounting(interest, termin_year) * MortalityTable::npx(termin_year, age);
+        };
+
+    double MortalityTable::vt(int t, int k, int interest, int termin_year, int age)
+        {
+        return MortalityTable::nex(interest, termin_year - t, age + t) * retrospective(liv1::NORMAL, k, interest, termin_year - t); 
+        };
+
+    double MortalityTable::passiv(int k, int interest, int termin_year, int age)
+        {
+        return MortalityTable::nex(interest, termin_year, age) * retrospective(liv1::NORMAL, k, interest, termin_year);
+        };
+    
+    /* ************************************************* */
+    /* END OF MortalityTable */
+    /* ************************************************* */
+    
     double interest(
         Value v,
         Cashflow cf, 

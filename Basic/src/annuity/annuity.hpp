@@ -1,4 +1,10 @@
 #include <math.h>
+#include <string>
+#include <vector>
+#include <map>
+
+#include "../../lib/filehandler/filehandler.h"
+#include "../../lib/logger/logger.h"
 
 #ifndef __ANNUITY__
 #define __ANNUITY__
@@ -43,6 +49,26 @@ namespace liv1 {
         {
         ACCUMULATED,
         RETROSPECTIVE
+        };
+
+    /* MortalityTable is used as an alternative to Gompertz-Makeham  
+     *
+     * Reads an .csv file with following headers:
+     * x;mu_x(float);f_x;l_x;d_x;q_x
+     *
+     * liv1::MortalityTable mt("data/G82.csv");
+     */
+    struct MortalityTable 
+        {
+        MortalityTable(const char *filename);
+        double lx(int age);
+        double npx(int termin_year, int age);
+        double nqx(int termin_year, int ager);
+        double nex(int interest, int termin_year, int age);
+        double vt(int t, int k, int interest, int termin_year, int age);
+        double passiv(int k, int interest, int termin_year, int age); 
+    private:
+        std::map<int, double> mortality;
         };
 
     /* Calcualtes the interest over n years with interest i 
