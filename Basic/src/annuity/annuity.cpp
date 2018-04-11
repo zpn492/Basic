@@ -56,7 +56,7 @@ namespace liv1 {
     /* ************************************************* */
     /* END OF MortalityTable */
     /* ************************************************* */
-    
+
     double interest(
         Value v,
         Cashflow cf, 
@@ -234,7 +234,7 @@ namespace liv1 {
         int age
     )
         {
-        return nex(interest, termin_year - t, age + t);
+        return nex(interest, termin_year - t, age + t); 
         };
 
     double passiv(

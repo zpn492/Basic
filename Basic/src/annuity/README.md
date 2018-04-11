@@ -5,6 +5,7 @@
 > Rentetilskrivning <br />
 > Dødsintensitet <br />
 > Passiv <br />
+> Opsparede beløb <br />
 <br />
 
 > Akkumuleretværdi <br />
@@ -70,6 +71,18 @@ double npx = liv1::lx(x+t) / liv1::lx(x);
 // for at han overlever, til han bliver 60 år?
 
 double npx = liv1::npx(30, 30);
+
+// Hvis Gompertz-Makeham ikke er tilstrækkelig, kan dødsintensiteten loades via en .csv
+// formatet på .csv filen forventes at være semikolon separeret med følgende headers
+// x;mu_x(float);f_x;l_x;d_x;q_x
+
+liv1::MortalityTable mt("data/G82.csv);
+
+// Herefter mt anvendes som ovenstående, altså:
+
+Overlevende_Mænd = mt.lx(x);
+
+npx = mt.npx(n, x);
 ```
 
 > Passiv <br />
@@ -95,4 +108,14 @@ double Passiv = Bliver_60 * Startkapital;
 // Værdien kan også findes direkte via funktionen passiv.
 // Denne funktion anvender diskontering.
 double Passiv_Diskontering = liv1::passiv(1, 0.045, 30, 30);
+```
+
+> Opsparede beløb <br />
+```c++
+// En kunde på 30 år sparer 42.000 op om året, altså lige knap 3.500 om måneden.
+// Opsparingen forrentes med 0,5 % p.a., vis udviklingen af depotet efter 5 år
+
+int t = 5;
+double Depot_Værdi_Efter_5_År = 
+    liv1::npx(30-t, 30+t) * liv1::accumulated(liv1::AFTERWARD, 42000, 0.05, t)
 ```
