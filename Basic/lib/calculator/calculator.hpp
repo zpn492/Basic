@@ -80,11 +80,6 @@
 namespace linalg
     {
     std::map<std::string, Matrix> decode_file(const char *filename);
-    
-    Matrix lup_solve(Matrix &A, Matrix &b);
-    std::vector<Matrix> lu_decomposition(Matrix &A);
-    Matrix ly_b_solve(Matrix &L, Matrix &b);
-    Matrix ux_y_solve(Matrix &U, Matrix &Y);
 
     void pretty_print(std::map<std::string, Matrix> obj);
 

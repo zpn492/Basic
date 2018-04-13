@@ -57,6 +57,7 @@ namespace linalg
         operator+(const Matrix &m);
         operator-(const Matrix &m);
         operator=(const Matrix &m);
+        
         /**
          * Row operations
          */
@@ -83,7 +84,7 @@ namespace linalg
         const Multiplication multiplication;
         
         };
-
+    
     /* ******************************************************** */
     /* Matrix factory */
     /* ******************************************************** */
@@ -99,6 +100,21 @@ namespace linalg
             }
         return m;
         };
+
+    /* ******************************************************** */
+    /* Solving linear equations with LUP Solve  */
+    /* ******************************************************** */
+
+    /**
+    * Solving linear equations with LUP Solve
+    * Introduction to algorithms 3. edition.
+    * By Thomas H. Corman, Charles E. Leisersion, Ronald L. Rivest & Clifford Stein 
+    * Pg. 817-824 
+    */
+    Matrix lup_solve(Matrix &A, Matrix &b);
+    std::vector<Matrix> lu_decomposition(Matrix &A);
+    Matrix ly_b_solve(Matrix &L, Matrix &b);
+    Matrix ux_y_solve(Matrix &U, Matrix &Y);
 
     /* ******************************************************** */
     /* Exceptions */

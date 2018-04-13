@@ -117,6 +117,10 @@ namespace linalg
         data[toRow-1] = data[fromRow-1];
         data[fromRow-1] = tmp;
         };
+    
+    /* ******************************************************** */
+    /* Helper functions */
+    /* ******************************************************** */
 
     void Matrix::fill(double value)
         {
@@ -182,6 +186,96 @@ namespace linalg
             std::cout << "] ";
             }
         std::cout << "]" << std::endl;;
+        };
+
+    /* ******************************************************** */
+    /* Solve system of linear equations */
+    /* ******************************************************** */
+        
+    std::vector<Matrix> lu_decomposition(Matrix &A)
+        {
+        std::vector<Matrix> lu;
+        Matrix TMP(A);
+        Matrix L(A.rows, A.rows); L.fill(1);
+        Matrix U(A.rows, A.rows); U.fill(1);
+
+        int i, k, j;
+
+        for(i = 0; i < A.rows; i++)
+            for(j = 0; j < A.rows; j++) 
+                {
+                if(j < i) U.set_value(i+1,j+1,0);
+                if(j > i) L.set_value(i+1,j+1,0);
+                }
+
+        for(k = 0; k < A.rows; k++)
+            {
+            U.set_value(k+1, k+1, A.get_value(k+1, k+1) ) ;
+            for(i = k + 1; i < A.rows; i++)
+                {
+                L.set_value(i+1, k+1, A.get_value(i+1, k+1) / A.get_value(k+1, k+1) );
+                U.set_value(k+1, i+1, A.get_value(k+1, i+1) );
+                }
+            for(i = k + 1; i < A.rows; i++)
+                for(j = k + 1; j < A.rows; j++)
+                    A.set_value(i+1, j+1, A.get_value(i+1, j+1) - L.get_value(i+1, k+1) * U.get_value(k+1, j+1) );
+            }
+        lu.push_back(L);
+        lu.push_back(U);
+        
+        A = TMP;
+
+        return lu;
+        };
+
+    Matrix ly_b_solve(Matrix &L, Matrix &b)
+        {
+        Matrix Y(L.rows, 1); Y.fill(0);
+        int i, j; 
+        double tmp;
+
+        Y.set_value(1, 1, b.get_value(1, 1) );
+
+        for(i = 1; i < L.rows; i++)
+            {
+            tmp = 0;
+            for(j = 0; j < i; j++)
+                tmp += L.get_value(i+1, j+1) * Y.get_value(j+1,1);
+            Y.set_value(i+1, 1, b.get_value(i+1, 1) - tmp);
+            }
+        return Y;
+        };
+
+    Matrix ux_y_solve(Matrix &U, Matrix &Y)
+        {
+        Matrix X(U.rows, 1); X.fill(0);
+        int i, j;
+        double tmp;
+
+        X.set_value(U.rows, 1, Y.get_value(U.rows, 1) / U.get_value(U.rows, U.rows) );
+        
+        for(i = U.rows-2; i > -1; i--)
+            {
+            tmp = 0;
+            for(j = i+1; j < U.rows; j++)
+                {                
+                tmp += U.get_value(i+1, j+1) * X.get_value(j+1, 1); 
+                }
+            X.set_value(i+1, 1, (Y.get_value(i+1, 1) - tmp) / U.get_value(i+1, i+1) );
+            }
+
+        return X;
+        };
+
+    Matrix lup_solve(Matrix &A, Matrix &b)
+        {
+        std::vector<Matrix> lu = lu_decomposition(A);
+
+        Matrix Y = ly_b_solve(lu[0], b);
+
+        Matrix X = ux_y_solve(lu[1], Y);
+
+        return X;
         };
     };
 

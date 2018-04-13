@@ -1,4 +1,4 @@
-# Standardfunktioner <br />
+# liv1 <br />
 ### Find reference til bogen 'Basic Life Insurance Mathematics af Ragnar Norberg', under annuity.hpp
 > Akkumuleretværdi <br />
 > Nutidsværdi <br />
@@ -78,8 +78,6 @@ double npx = liv1::npx(30, 30);
 
 liv1::MortalityTable mt("data/G82.csv);
 
-// Herefter mt anvendes som ovenstående, altså:
-
 Overlevende_Mænd = mt.lx(x);
 
 npx = mt.npx(n, x);
@@ -113,7 +111,8 @@ double Passiv_Diskontering = liv1::passiv(1, 0.045, 30, 30);
 > Opsparede beløb <br />
 ```c++
 // En kunde på 30 år sparer 42.000 op om året, altså lige knap 3.500 om måneden.
-// Opsparingen forrentes med 0,5 % p.a., vis udviklingen af depotet efter 5 år
+// Opsparingen forrentes med 0,5 % p.a., vis udviklingen af depotet efter 5 år.
+// Resultatet: 197.928,-
 
 int t = 5;
 double Depot_Værdi_Efter_5_År = 
