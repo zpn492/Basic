@@ -1,8 +1,8 @@
+#include "../../SimpleJust.h"
+
 #include "../../lib/sock/sock.h"
 #include "../../lib/filehandler/filehandler.h"
 #include "../../lib/logger/logger.h"
-#include <map>
-#include <pthread.h>
 
 #ifndef __HTTP__
 #define __HTTP__

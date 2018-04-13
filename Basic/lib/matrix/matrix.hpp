@@ -1,29 +1,13 @@
-#include <iostream>
-#include <exception>
-#include <cstdlib>
-#include <vector>
-
 #ifndef __MATRIX__
 #define __MATRIX__
 
-/* ******************************************************** */
-/* Examples */
-/* ******************************************************** */
-/*
-    A#
-    int v1[4][1] = { {1}, {-3}, {2}, {4} };
-    Matrix x(MatrixFactory<4,1>(v1));
-
-    B#
-    Matrix z(3,3); z.fill(0);
-*/
+#include "../../SimpleJust.h"
 
 namespace linalg 
     {
     /* ******************************************************** */
     /* Exceptions */
     /* ******************************************************** */
-
     class OutOfBounds: public std::exception { virtual const char* what() const throw(); };
 
     class LeastSquare: public std::exception { virtual const char* what() const throw(); };
@@ -36,21 +20,10 @@ namespace linalg
     class Matrix
         {
     public:
-        
-        /**
-        * Create a matrix
-        */
+
         Matrix(int rows, int cols);
         Matrix(const Matrix &m);
 
-        ~Matrix() {};
-
-        /** 
-         * Multiplication with scalar 
-         * Multiplication
-         * Addition
-         * Substraction
-         */
         operator*(double v);
         operator+(double v);
         operator*(const Matrix &m) throw();
@@ -78,11 +51,9 @@ namespace linalg
         int rows; int cols;
 
     private:
-        
         const OutOfBounds outofbounds;
         const LeastSquare leastsquare;
         const Multiplication multiplication;
-        
         };
     
     /* ******************************************************** */
@@ -106,11 +77,11 @@ namespace linalg
     /* ******************************************************** */
 
     /**
-    * Solving linear equations with LUP Solve
-    * Introduction to algorithms 3. edition.
-    * By Thomas H. Corman, Charles E. Leisersion, Ronald L. Rivest & Clifford Stein 
-    * Pg. 817-824 
-    */
+     * Solving linear equations with LUP Solve
+     * Introduction to algorithms 3. edition.
+     * By Thomas H. Corman, Charles E. Leisersion, Ronald L. Rivest & Clifford Stein 
+     * Pg. 817-824 
+     */
     Matrix lup_solve(Matrix &A, Matrix &b);
     std::vector<Matrix> lu_decomposition(Matrix &A);
     Matrix ly_b_solve(Matrix &L, Matrix &b);

@@ -93,7 +93,7 @@ namespace linalg
 
     void Matrix::row_scalar_multiplication(int row, double value)
         {
-        for(int i = 0; i < data[row].size(); i++)
+        for(int i = 0; i < data[row-1].size(); i++)
             data[row-1][i] *= value;
         };
     
@@ -101,12 +101,12 @@ namespace linalg
         {
         if(isAddition == 'T')
             {
-            for(int i = 0; i < data[rowA].size(); i++)
+            for(int i = 0; i < data[rowA-1].size(); i++)
                 data[rowA-1][i] += data[rowB-1][i]*times;
             }
         else
             {
-            for(int i = 0; i < data[rowA].size(); i++)
+            for(int i = 0; i < data[rowA-1].size(); i++)
                 data[rowA-1][i] -= data[rowB-1][i]*times;
             }
         };

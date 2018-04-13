@@ -6,7 +6,7 @@
 > Rækkeroperationer <br />
 > Løs ligningssystem <br />
 
-> Opstil to matricer A og B <br />
+> Opstil to matricer <br />
 ```c++
 // 
 int v1[2][3] = {{2, 3, 1}, {4, -1, -2} };
@@ -34,13 +34,13 @@ A.Transpose();
 // Række 1 ganges med 0.5
 A.row_scalar_multiplication(1, 0.5);
 
-// Læg 3 gange 2 til række 1
-A.row_addition_multilpum(1, 2, 3, true);
+// Læg 3 gange række 2 til række 1
+A.row_addition_multilpum(1, 2, 3, 'T');
 
-// Træk 3 gange 2 fra række 3 
-A.row_addition_multilpum(3, 2, 3, false);
+// Træk 3 gange række 2 fra række 3 
+A.row_addition_multilpum(3, 2, 3, '');
 
-// Byt om på række 2 og række 1
+// Byt om på række 1 og række 2
 A.row_move(1, 2);
 ```
 

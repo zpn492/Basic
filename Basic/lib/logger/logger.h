@@ -1,4 +1,5 @@
-#include "windows.h"
+#include "../../SimpleJust.h"
+
 #define FGREEN   10
 #define FRED     12
 #define FYELLOW  14
@@ -7,11 +8,6 @@
 
 #ifndef LOGGER_H_
 #define LOGGER_H_
-
-#include <string>
-#include <stdio.h>
-#include <stdlib.h>
-#include <iostream>
 
 class Logger
     {

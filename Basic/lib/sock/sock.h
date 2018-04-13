@@ -1,13 +1,8 @@
 #ifndef __SOCK__
 #define __SOCK__
 
-#include "winsock2.h"
-#include "Ws2tcpip.h"
+#include "../../SimpleJust.h"
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string>
-#include <vector>
 #include "../../lib/logger/logger.h"
 
 using namespace std;

@@ -1,14 +1,9 @@
 #ifndef FILEHANDLER_H_
 #define FILEHANDLER_H_
 
-#include "..\Logger\logger.h" // filehandler
-#include <string>   // filehandler
-#include <fstream>  // filehandler
-#include <cerrno>   // filehandler
-#include <string>
-#include <vector>
-#include <algorithm>
-#include <sstream>
+#include "..\Logger\logger.h" 
+
+#include "../../SimpleJust.h"
 
 namespace filehandler
     {

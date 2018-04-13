@@ -1,18 +1,12 @@
-/* WIN - HTTP server */
-#include "lib/http/http.hpp"
-
-#include <stdio.h>
-#include <stdlib.h>
-#include <exception>
-#include <vector>
-#include <iostream>
-#include <string>
-#include <map>
-#include <conio.h> /* getch() */
+/* Handles all standard includes */
+#include "SimpleJust.h"
 
 /* filehandler */
 #include "lib/filehandler/filehandler.h"
 #include "lib/logger/logger.h"
+
+/* WIN - HTTP server */
+#include "lib/http/http.hpp"
 
 /* linalg */
 #include "lib/matrix/matrix.hpp"

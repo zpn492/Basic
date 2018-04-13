@@ -1,12 +1,6 @@
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <exception>
-#include <vector>
-#include <iostream>
-#include <algorithm>
-#include <string>
-#include <map>
+#include "../../SimpleJust.h"
+
 #include "../../lib/filehandler/filehandler.h"
 #include "../../lib/logger/logger.h"
 #include "../../lib/matrix/matrix.hpp"
