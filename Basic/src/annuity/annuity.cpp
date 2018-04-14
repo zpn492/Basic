@@ -57,7 +57,7 @@ namespace liv1 {
     /* END OF MortalityTable */
     /* ************************************************* */
 
-    double interest(
+    double annuity(
         Value v,
         Cashflow cf, 
         double interest, 
@@ -166,7 +166,7 @@ namespace liv1 {
         int accural_of_interest
     )
         {
-        return k0 * liv1::interest(ACCUMULATED, cf, interest, termin_year, accural_of_interest);
+        return k0 * liv1::annuity(ACCUMULATED, cf, interest, termin_year, accural_of_interest);
         };
 
     double retrospective( 
@@ -177,7 +177,7 @@ namespace liv1 {
         int accural_of_interest
     )
         {
-        return kn * liv1::interest(RETROSPECTIVE, cf, interest, termin_year, accural_of_interest);
+        return kn * liv1::annuity(RETROSPECTIVE, cf, interest, termin_year, accural_of_interest);
         };
 
     double mortality(

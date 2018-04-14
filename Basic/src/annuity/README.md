@@ -28,10 +28,11 @@ double kn = liv1::retrospective(liv1::NORMAL, 150000, 0.08, 5);
 
 > Rentetilskrivning <br /> 
 ```c++
-// Ènkelt beløb, der forrentes med en statisk rente til 8 ptc., over 10 år. 
+// Ènkelt beløb, der forrentes med en statisk rente til 8 ptc., og forrentes hvert år i 10 år. 
 
-double Enkelt_Betaling = liv1::interest(liv1::RETROSPECTIVE, liv1::NORMAL, 0.08, 10);
+double Enkelt_Betaling = liv1::annuity(liv1::RETROSPECTIVE, liv1::NORMAL, 0.08, 10);
 ```
+$K_0 = (1 + i)^(-n) * K_n$
 
 ```c++
 // Løbende indbetaling(bagudbetalt) af et statisk beløb. 
@@ -39,8 +40,9 @@ double Enkelt_Betaling = liv1::interest(liv1::RETROSPECTIVE, liv1::NORMAL, 0.08,
 // hvor n svarer til antal indbetalte år, her er det 10 år.
 // Den sidste indbetaling kommer på tidspunkt n og forrentes ikke.
 
-double Kontinuerlig_Betaling_Bagudbetalt = liv1::interest(liv1::RETROSPECTIVE, liv1::AFTERWARD, 0.08, 10);
+double Kontinuerlig_Betaling_Bagudbetalt = liv1::annuity(liv1::RETROSPECTIVE, liv1::AFTERWARD, 0.08, 10);
 ```
+$K_0  = \frac{1-(1+i)^(-n)}{i}$
 
 ```c++
 // Løbende indbetaling(forudbetalt) af et statisk beløb. 
@@ -48,8 +50,9 @@ double Kontinuerlig_Betaling_Bagudbetalt = liv1::interest(liv1::RETROSPECTIVE, l
 // hvor n svarer til antal indbetalte år, her er det 10 år.
 // Den sidste indbetaling kommer på tidspunkt n-1 og forrentes frem til n.
 
-double Kontinuerlig_Betaling_Forudbetalt = liv1::interest(liv1::RETROSPECTIVE, liv1::FORWARD, 0.08, 10);
+double Kontinuerlig_Betaling_Forudbetalt = liv1::annuity(liv1::RETROSPECTIVE, liv1::FORWARD, 0.08, 10);
 ```
+$K_0  = (1+i)\frac{1-(1+i)^(-n)}{i}$
 
 Anvendelse af rentetilskrivning foregår ved at kalde liv1::accumulated eller liv1::retrospective, hvori der angives rentetilskrivningsmetode, beløb, rente og termin.
 

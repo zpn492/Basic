@@ -74,7 +74,7 @@ namespace liv1 {
     /* Calcualtes the interest over n years with interest i 
      * Chapter 2, page 24: D. Some standard payment functions and thier values
      */ 
-    double interest(
+    double annuity(
         Value v,
         Cashflow cf,
         double interest, 
