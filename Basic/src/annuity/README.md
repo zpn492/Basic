@@ -1,12 +1,69 @@
 # liv1 <br />
-### Find reference til bogen 'Basic Life Insurance Mathematics af Ragnar Norberg', under annuity.hpp
+> Rentetilskrivning og annuiteter <br />
 > Akkumuleretværdi <br />
 > Nutidsværdi <br />
-> Rentetilskrivning <br />
 > Dødsintensitet <br />
 > Passiv <br />
 > Opsparede beløb <br />
 <br />
+
+> Rentetilskrivning og annuiteter <br /> 
+```c++
+// Ènkelt beløb, der forrentes med en statisk rente til 8 ptc., og forrentes hvert år i 10 år. 
+//
+// K_0 = (1 + i)^(-n) * K_n
+
+double K0_Enkelt_Betaling = liv1::annuity(liv1::RETROSPECTIVE, liv1::NORMAL, 0.08, 10);
+
+// K_n = (1 + i)^(n) * K_0
+
+double Kn_Enkelt_Betaling = liv1::annuity(liv1::ACCUMULATED, liv1::NORMAL, 0.08, 10);
+```
+
+```c++
+// Løbende indbetaling(bagudbetalt) af et statisk beløb. 
+// Èn indbetaling indsættes på tidspunkt t og forrentes (n-t-1) gange, 
+// hvor n svarer til antal indbetalte år, her er det 10 år.
+// Den sidste indbetaling kommer på tidspunkt n og forrentes ikke.
+//
+// a_((n)\rceil(i) ) = K_0  = \frac{1 - (1+i)^(-n)}{i}
+
+double K0_Kontinuerlig_Betaling_Bagudbetalt = liv1::annuity(liv1::RETROSPECTIVE, liv1::AFTERWARD, 0.08, 10);
+
+// s_((n)\rceil(i) ) = K_n  = \frac{(1+i)^(n) - 1}{i}
+
+double Kn_Kontinuerlig_Betaling_Bagudbetalt = liv1::annuity(liv1::ACCUMULATED, liv1::AFTERWARD, 0.08, 10);
+```
+
+```c++
+// Løbende indbetaling(forudbetalt) af et statisk beløb. 
+// Èn indbetaling indsættes på tidspunkt t og forrentes (n-t) gange, 
+// hvor n svarer til antal indbetalte år, her er det 10 år.
+// Den sidste indbetaling kommer på tidspunkt n-1 og forrentes frem til n.
+//
+// {\"a}_((n)\rceil(i) ) = K_0  = (1+i) * \frac{1-(1+i)^(-n)}{i}
+
+double K0_Kontinuerlig_Betaling_Forudbetalt = liv1::annuity(liv1::RETROSPECTIVE, liv1::FORWARD, 0.08, 10);
+
+// {\"s}_((n)\rceil(i) ) = K_n  = \frac{(1+i)^(n+1) - (1+i)}{i}
+
+double Kn_Kontinuerlig_Betaling_Forudbetalt = liv1::annuity(liv1::ACCUMULATED, liv1::FORWARD, 0.08, 10);
+```
+
+```c++
+// Kontinuert rentetilskrivning
+// 
+// {\-a}_((n)\rceil(i) ) = K_0  = \frac{1-e^(- \delta * n)}{\delta}
+// \delta = ln(q)
+// if m = 1 then q = (1 + i)
+// else q = (1 - i)^(1/m)
+
+double K0_Kontinuerlig_Betaling_Forudbetalt = liv1::annuity(liv1::RETROSPECTIVE, liv1::CONTINUOUS, 0.08, 10);
+
+// {\-s}_((n)\rceil(i) ) = K_n  = \frac{e^(\delta * n) - 1}{\delta}
+
+double Kn_Kontinuerlig_Betaling_Forudbetalt = liv1::annuity(liv1::ACCUMULATED, liv1::CONTINUOUS, 0.08, 10);
+```
 
 > Akkumuleretværdi <br />
 ```c++
@@ -26,46 +83,18 @@ double k0 = liv1::accumulated(liv1::NORMAL, 10000, 0.08, 10);
 double kn = liv1::retrospective(liv1::NORMAL, 150000, 0.08, 5);
 ``` 
 
-> Rentetilskrivning <br /> 
-```c++
-// Ènkelt beløb, der forrentes med en statisk rente til 8 ptc., og forrentes hvert år i 10 år. 
-
-double Enkelt_Betaling = liv1::annuity(liv1::RETROSPECTIVE, liv1::NORMAL, 0.08, 10);
-```
-$K_0 = (1 + i)^(-n) * K_n$
-
-```c++
-// Løbende indbetaling(bagudbetalt) af et statisk beløb. 
-// Èn indbetaling indsættes på tidspunkt t og forrentes (n-t+1) gange, 
-// hvor n svarer til antal indbetalte år, her er det 10 år.
-// Den sidste indbetaling kommer på tidspunkt n og forrentes ikke.
-
-double Kontinuerlig_Betaling_Bagudbetalt = liv1::annuity(liv1::RETROSPECTIVE, liv1::AFTERWARD, 0.08, 10);
-```
-$K_0  = \frac{1-(1+i)^(-n)}{i}$
-
-```c++
-// Løbende indbetaling(forudbetalt) af et statisk beløb. 
-// Èn indbetaling indsættes på tidspunkt t og forrentes (n-t) gange, 
-// hvor n svarer til antal indbetalte år, her er det 10 år.
-// Den sidste indbetaling kommer på tidspunkt n-1 og forrentes frem til n.
-
-double Kontinuerlig_Betaling_Forudbetalt = liv1::annuity(liv1::RETROSPECTIVE, liv1::FORWARD, 0.08, 10);
-```
-$K_0  = (1+i)\frac{1-(1+i)^(-n)}{i}$
-
-Anvendelse af rentetilskrivning foregår ved at kalde liv1::accumulated eller liv1::retrospective, hvori der angives rentetilskrivningsmetode, beløb, rente og termin.
-
 
 > Dødsintensitet <br />
 ```c++
 // Beregner på baggrund af Gompertz-Makeham parametre,
 // hvor mange mænd der overlever til alder x
+//
+// lx(x) = e^(-alpha * x - beta * (e^(gamma * x) - 1.0) / gamma)
 
 double Overlevende_Mænd = liv1::lx(x);
 
-// Sandsynligheden for at være x år og overleve til alder x + n, 
-// findes ved at se hvor mange der bliver x+n år, 
+// Sandsynligheden for at være x år og overleve til alder x + t, 
+// findes ved at se hvor mange der bliver x+t år, 
 // divideret med hvor mange der bliver x år 
 
 double npx = liv1::lx(x+t) / liv1::lx(x);
